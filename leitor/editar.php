@@ -1,9 +1,32 @@
+<?php
+
+include "../conexao.php";
+
+$id = $_GET['id'];
+
+$leitor = $conn->query("SELECT * FROM leitor WHERE id = $id")->fetch_assoc();
+
+if (isset($_POST['email'])) {
+    $nome = $_POST['nome'];
+    $email = $_POST['email'];
+    $senha = $_POST['senha'];
+
+    $sql = "UPDATE leitor SET nome = '$nome', email = '$email', senha = '$senha' WHERE id = $id";
+
+    $resultado = $conn->query($sql);
+
+    header('Location: listar.php');
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar Leitor</title>
+    <title>Atualizar Leitor</title>
     <style>
         * {
             margin: 0;
@@ -136,6 +159,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- Barra de Navegação -->
@@ -149,33 +173,33 @@
     <!-- Formulário de Cadastro -->
     <main class="container">
         <div class="form-card">
-            <h1>Cadastrar Novo Leitor</h1>
-            
+            <h1>Atualizar Leitor</h1>
+
             <!-- O formulário envia os dados via POST para o arquivo que processará o banco -->
-            <form action="inserir.php" method="POST">
-                
+            <form method="POST">
+
                 <!-- Campo Nome -->
                 <div class="input-group">
                     <label for="nome">Nome Completo</label>
-                    <input type="text" id="nome" name="nome" placeholder="Digite o nome do leitor" required>
+                    <input type="text" value="<?= $leitor['nome'] ?>" id="nome" name="nome" placeholder="Digite o nome do leitor" required>
                 </div>
-                
+
                 <!-- Campo E-mail -->
                 <div class="input-group">
                     <label for="email">E-mail</label>
-                    <input type="email" id="email" name="email" placeholder="exemplo@email.com" required>
+                    <input type="email" value="<?= $leitor['email'] ?>"  id="email" name="email" placeholder="exemplo@email.com" required>
                 </div>
-                
+
                 <!-- Campo Senha -->
                 <div class="input-group">
                     <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" placeholder="Crie uma senha de acesso" required>
+                    <input type="password" value="<?= $leitor['senha'] ?>"  id="senha" name="senha" placeholder="Crie uma senha de acesso" required>
                 </div>
 
                 <!-- Botões de Ação -->
                 <div class="btn-group">
                     <a href="listar.php" class="btn btn-cancel">Cancelar</a>
-                    <button type="submit" class="btn btn-submit">Salvar Cadastro</button>
+                    <button type="submit" class="btn btn-submit">Atualizar</button>
                 </div>
 
             </form>
@@ -183,4 +207,5 @@
     </main>
 
 </body>
+
 </html>

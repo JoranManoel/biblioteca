@@ -145,7 +145,7 @@
     <main class="container">
         <div class="header-actions">
             <h1>Lista de Leitores</h1>
-            <a href="novo.php" class="btn-add">+ Novo Leitor</a>
+            <a href="inserir.php" class="btn-add">+ Novo Leitor</a>
         </div>
 
         <div class="table-container">
